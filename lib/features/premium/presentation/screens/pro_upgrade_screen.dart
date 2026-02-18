@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scanvolt/app/theme.dart';
+import 'package:scanvolt/core/constants/app_icons.dart';
 
 /// ScanVolt Pro アップグレードペイウォール画面。
 class ProUpgradeScreen extends ConsumerStatefulWidget {
@@ -30,10 +32,14 @@ class _ProUpgradeScreenState extends ConsumerState<ProUpgradeScreen> {
                 alignment: Alignment.topRight,
                 child: IconButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  icon: const Icon(
-                    Icons.close,
-                    color: AppTheme.textSecondary,
-                    size: 28,
+                  icon: SvgPicture.asset(
+                    AppIcons.close,
+                    colorFilter: const ColorFilter.mode(
+                      AppTheme.textSecondary,
+                      BlendMode.srcIn,
+                    ),
+                    width: 28,
+                    height: 28,
                   ),
                 ),
               ),
@@ -66,10 +72,14 @@ class _ProUpgradeScreenState extends ConsumerState<ProUpgradeScreen> {
                   padding: const EdgeInsets.only(bottom: 16),
                   child: Row(
                     children: [
-                      const Icon(
-                        Icons.check_circle_outline,
-                        color: AppTheme.primaryCyan,
-                        size: 24,
+                      SvgPicture.asset(
+                        AppIcons.checkCircleOutline,
+                        colorFilter: const ColorFilter.mode(
+                          AppTheme.primaryCyan,
+                          BlendMode.srcIn,
+                        ),
+                        width: 24,
+                        height: 24,
                       ),
                       const SizedBox(width: 14),
                       Expanded(

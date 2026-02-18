@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scanvolt/app/theme.dart';
+import 'package:scanvolt/core/constants/app_icons.dart';
 import 'package:scanvolt/features/history/data/repositories/providers.dart';
 import 'package:scanvolt/features/scan/domain/models/scan_result.dart';
 import 'package:share_plus/share_plus.dart';
@@ -97,7 +99,7 @@ class ScanResultSheet extends ConsumerWidget {
                         // Open ボタン（URL の場合）
                         if (result.dataType == ScanDataType.url)
                           _FilledActionButton(
-                            icon: Icons.open_in_new,
+                            iconPath: AppIcons.openInNew,
                             label: 'Open',
                             onPressed: () async =>
                                 _openUrl(result.rawValue),
@@ -107,7 +109,7 @@ class ScanResultSheet extends ConsumerWidget {
 
                         // Copy ボタン
                         _OutlineActionButton(
-                          icon: Icons.copy_outlined,
+                          iconPath: AppIcons.copyOutlined,
                           label: 'Copy',
                           onPressed: () async {
                             await Clipboard.setData(
@@ -124,7 +126,7 @@ class ScanResultSheet extends ConsumerWidget {
 
                         // Share ボタン
                         _OutlineActionButton(
-                          icon: Icons.ios_share,
+                          iconPath: AppIcons.iosShare,
                           label: 'Share',
                           onPressed: () async {
                             await SharePlus.instance.share(
@@ -136,7 +138,7 @@ class ScanResultSheet extends ConsumerWidget {
 
                         // Search ボタン
                         _OutlineActionButton(
-                          icon: Icons.search,
+                          iconPath: AppIcons.search,
                           label: 'Search',
                           onPressed: () async =>
                               _searchWeb(result.rawValue),
@@ -160,7 +162,15 @@ class ScanResultSheet extends ConsumerWidget {
                           Navigator.of(context).pop();
                         }
                       },
-                      icon: const Icon(Icons.bookmark_border),
+                      icon: SvgPicture.asset(
+                        AppIcons.bookmarkBorder,
+                        colorFilter: const ColorFilter.mode(
+                          AppTheme.textPrimary,
+                          BlendMode.srcIn,
+                        ),
+                        width: 18,
+                        height: 18,
+                      ),
                       label: const Text('Save to History'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppTheme.darkCard,
@@ -204,14 +214,14 @@ class _TypeBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final (icon, label, color) = switch (dataType) {
-      ScanDataType.url => (Icons.language, 'URL', AppTheme.primaryCyan),
-      ScanDataType.wifi => (Icons.wifi, 'Wi-Fi', AppTheme.successGreen),
-      ScanDataType.contact => (Icons.person_outline, 'Contact', Colors.orange),
-      ScanDataType.text => (Icons.description_outlined, 'Text', Colors.white70),
-      ScanDataType.email => (Icons.email_outlined, 'Email', Colors.amber),
-      ScanDataType.phone => (Icons.phone, 'Phone', Colors.lightBlue),
-      _ => (Icons.qr_code, dataType.name.toUpperCase(), Colors.grey),
+    final (iconPath, label, color) = switch (dataType) {
+      ScanDataType.url => (AppIcons.language, 'URL', AppTheme.primaryCyan),
+      ScanDataType.wifi => (AppIcons.wifi, 'Wi-Fi', AppTheme.successGreen),
+      ScanDataType.contact => (AppIcons.personOutline, 'Contact', Colors.orange),
+      ScanDataType.text => (AppIcons.descriptionOutlined, 'Text', Colors.white70),
+      ScanDataType.email => (AppIcons.emailOutlined, 'Email', Colors.amber),
+      ScanDataType.phone => (AppIcons.phone, 'Phone', Colors.lightBlue),
+      _ => (AppIcons.qrCode, dataType.name.toUpperCase(), Colors.grey),
     };
 
     return Container(
@@ -223,7 +233,7 @@ class _TypeBadge extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, size: 16, color: color),
+          SvgPicture.asset(iconPath, width: 16, height: 16, colorFilter: ColorFilter.mode(color, BlendMode.srcIn)),
           const SizedBox(width: 4),
           Text(
             label,
@@ -249,12 +259,12 @@ class _SafetyIndicator extends StatelessWidget {
     final isSecure = rawValue.startsWith('https://');
     final color = isSecure ? AppTheme.successGreen : AppTheme.warningRed;
     final label = isSecure ? 'Safe' : 'Warning';
-    final icon = isSecure ? Icons.shield_outlined : Icons.warning_amber;
+    final iconPath = isSecure ? AppIcons.shieldOutlined : AppIcons.warningAmber;
 
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(icon, size: 14, color: color),
+        SvgPicture.asset(iconPath, width: 14, height: 14, colorFilter: ColorFilter.mode(color, BlendMode.srcIn)),
         const SizedBox(width: 4),
         Text(
           label,
@@ -270,12 +280,12 @@ class _SafetyIndicator extends StatelessWidget {
 
 class _FilledActionButton extends StatelessWidget {
   const _FilledActionButton({
-    required this.icon,
+    required this.iconPath,
     required this.label,
     required this.onPressed,
   });
 
-  final IconData icon;
+  final String iconPath;
   final String label;
   final VoidCallback onPressed;
 
@@ -283,7 +293,15 @@ class _FilledActionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
       onPressed: onPressed,
-      icon: Icon(icon, size: 18),
+      icon: SvgPicture.asset(
+        iconPath,
+        width: 18,
+        height: 18,
+        colorFilter: const ColorFilter.mode(
+          AppTheme.darkBackground,
+          BlendMode.srcIn,
+        ),
+      ),
       label: Text(label),
       style: ElevatedButton.styleFrom(
         backgroundColor: AppTheme.primaryCyan,
@@ -297,12 +315,12 @@ class _FilledActionButton extends StatelessWidget {
 
 class _OutlineActionButton extends StatelessWidget {
   const _OutlineActionButton({
-    required this.icon,
+    required this.iconPath,
     required this.label,
     required this.onPressed,
   });
 
-  final IconData icon;
+  final String iconPath;
   final String label;
   final VoidCallback onPressed;
 
@@ -310,7 +328,15 @@ class _OutlineActionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return OutlinedButton.icon(
       onPressed: onPressed,
-      icon: Icon(icon, size: 18),
+      icon: SvgPicture.asset(
+        iconPath,
+        width: 18,
+        height: 18,
+        colorFilter: const ColorFilter.mode(
+          AppTheme.textPrimary,
+          BlendMode.srcIn,
+        ),
+      ),
       label: Text(label),
       style: OutlinedButton.styleFrom(
         foregroundColor: AppTheme.textPrimary,

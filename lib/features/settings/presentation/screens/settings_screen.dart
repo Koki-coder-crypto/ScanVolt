@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scanvolt/app/theme.dart';
+import 'package:scanvolt/core/constants/app_icons.dart';
 import 'package:scanvolt/features/premium/presentation/screens/pro_upgrade_screen.dart';
 import 'package:scanvolt/features/settings/presentation/widgets/settings_section.dart';
 import 'package:scanvolt/features/settings/presentation/widgets/settings_tile.dart';
@@ -45,7 +47,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               title: 'General',
               children: [
                 SettingsTile(
-                  icon: Icons.palette_outlined,
+                  icon: AppIcons.paletteOutlined,
                   title: 'Appearance',
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -57,9 +59,14 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                             ),
                       ),
                       const SizedBox(width: 4),
-                      const Icon(
-                        Icons.chevron_right,
-                        color: AppTheme.textTertiary,
+                      SvgPicture.asset(
+                        AppIcons.chevronRight,
+                        colorFilter: const ColorFilter.mode(
+                          AppTheme.textTertiary,
+                          BlendMode.srcIn,
+                        ),
+                        width: 24,
+                        height: 24,
                       ),
                     ],
                   ),
@@ -68,7 +75,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   },
                 ),
                 SettingsTile(
-                  icon: Icons.vibration,
+                  icon: AppIcons.vibration,
                   title: 'Vibrate on scan',
                   trailing: Switch(
                     value: _vibrateOnScan,
@@ -77,7 +84,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   ),
                 ),
                 SettingsTile(
-                  icon: Icons.volume_up_outlined,
+                  icon: AppIcons.volumeUpOutlined,
                   title: 'Sound on scan',
                   trailing: Switch(
                     value: _soundOnScan,
@@ -86,7 +93,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   ),
                 ),
                 SettingsTile(
-                  icon: Icons.open_in_new,
+                  icon: AppIcons.openInNew,
                   title: 'Auto-open URLs',
                   trailing: Switch(
                     value: _autoOpenUrls,
@@ -102,7 +109,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               title: 'ScanVolt Pro',
               children: [
                 SettingsTile(
-                  icon: Icons.bolt,
+                  icon: AppIcons.bolt,
                   iconColor: Colors.amber,
                   title: 'Upgrade to Pro',
                   subtitle: 'Unlimited history, custom QR codes, and more',
@@ -125,14 +132,14 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               title: 'Data',
               children: [
                 SettingsTile(
-                  icon: Icons.upload_outlined,
+                  icon: AppIcons.uploadOutlined,
                   title: 'Export History',
                   onTap: () {
                     // TODO(scanvolt): export history
                   },
                 ),
                 SettingsTile(
-                  icon: Icons.delete_outline,
+                  icon: AppIcons.deleteOutline,
                   iconColor: AppTheme.warningRed,
                   title: 'Clear History',
                   textColor: AppTheme.warningRed,
@@ -148,28 +155,28 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               title: 'About',
               children: [
                 SettingsTile(
-                  icon: Icons.star_border,
+                  icon: AppIcons.starBorder,
                   title: 'Rate ScanVolt',
                   onTap: () {
                     // TODO(scanvolt): open app store rating
                   },
                 ),
                 SettingsTile(
-                  icon: Icons.shield_outlined,
+                  icon: AppIcons.shieldOutlined,
                   title: 'Privacy Policy',
                   onTap: () {
                     // TODO(scanvolt): open privacy policy URL
                   },
                 ),
                 SettingsTile(
-                  icon: Icons.description_outlined,
+                  icon: AppIcons.descriptionOutlined,
                   title: 'Terms of Service',
                   onTap: () {
                     // TODO(scanvolt): open terms of service URL
                   },
                 ),
                 SettingsTile(
-                  icon: Icons.source_outlined,
+                  icon: AppIcons.sourceOutlined,
                   title: 'Open Source Licenses',
                   onTap: () {
                     showLicensePage(
@@ -180,7 +187,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   },
                 ),
                 SettingsTile(
-                  icon: Icons.info_outline,
+                  icon: AppIcons.infoOutline,
                   title: 'Version',
                   trailing: Text(
                     '1.0.0',

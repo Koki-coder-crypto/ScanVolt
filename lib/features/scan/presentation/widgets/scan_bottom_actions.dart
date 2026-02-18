@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scanvolt/app/theme.dart';
+import 'package:scanvolt/core/constants/app_icons.dart';
 
 /// スキャン画面下部のアクションバー。
 ///
@@ -34,18 +36,18 @@ class ScanBottomActions extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           _ActionButton(
-            icon: isFlashOn ? Icons.flash_on : Icons.flash_off,
+            iconPath: isFlashOn ? AppIcons.flashOn : AppIcons.flashOff,
             onPressed: onFlashToggle,
             isActive: isFlashOn,
           ),
           const SizedBox(width: 24),
           _ActionButton(
-            icon: Icons.cameraswitch_outlined,
+            iconPath: AppIcons.cameraswitchOutlined,
             onPressed: onLensSwitch,
           ),
           const SizedBox(width: 24),
           _ActionButton(
-            icon: Icons.photo_library_outlined,
+            iconPath: AppIcons.photoLibraryOutlined,
             onPressed: onImagePick,
           ),
         ],
@@ -56,12 +58,12 @@ class ScanBottomActions extends StatelessWidget {
 
 class _ActionButton extends StatelessWidget {
   const _ActionButton({
-    required this.icon,
+    required this.iconPath,
     required this.onPressed,
     this.isActive = false,
   });
 
-  final IconData icon;
+  final String iconPath;
   final VoidCallback onPressed;
   final bool isActive;
 
@@ -75,12 +77,16 @@ class _ActionButton extends StatelessWidget {
         onTap: onPressed,
         child: Padding(
           padding: const EdgeInsets.all(14),
-          child: Icon(
-            icon,
-            color: isActive
-                ? AppTheme.primaryCyan
-                : AppTheme.textPrimary,
-            size: 24,
+          child: SvgPicture.asset(
+            iconPath,
+            colorFilter: ColorFilter.mode(
+              isActive
+                  ? AppTheme.primaryCyan
+                  : AppTheme.textPrimary,
+              BlendMode.srcIn,
+            ),
+            width: 24,
+            height: 24,
           ),
         ),
       ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scanvolt/app/theme.dart';
+import 'package:scanvolt/core/constants/app_icons.dart';
 
 /// 設定画面の個別タイル。
 class SettingsTile extends StatelessWidget {
@@ -15,8 +17,8 @@ class SettingsTile extends StatelessWidget {
     super.key,
   });
 
-  /// 左アイコン。
-  final IconData icon;
+  /// 左アイコンのSVGパス。
+  final String icon;
 
   /// タイトル。
   final String title;
@@ -39,7 +41,15 @@ class SettingsTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Icon(icon, color: iconColor ?? AppTheme.textPrimary, size: 22),
+      leading: SvgPicture.asset(
+        icon,
+        colorFilter: ColorFilter.mode(
+          iconColor ?? AppTheme.textPrimary,
+          BlendMode.srcIn,
+        ),
+        width: 22,
+        height: 22,
+      ),
       title: Text(
         title,
         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
@@ -56,9 +66,14 @@ class SettingsTile extends StatelessWidget {
           : null,
       trailing: trailing ??
           (onTap != null
-              ? const Icon(
-                  Icons.chevron_right,
-                  color: AppTheme.textTertiary,
+              ? SvgPicture.asset(
+                  AppIcons.chevronRight,
+                  colorFilter: const ColorFilter.mode(
+                    AppTheme.textTertiary,
+                    BlendMode.srcIn,
+                  ),
+                  width: 24,
+                  height: 24,
                 )
               : null),
       onTap: onTap,

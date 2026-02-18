@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scanvolt/app/theme.dart';
+import 'package:scanvolt/core/constants/app_icons.dart';
 import 'package:scanvolt/features/history/presentation/view_models/history_view_model.dart';
 import 'package:scanvolt/features/history/presentation/widgets/history_empty_state.dart';
 import 'package:scanvolt/features/history/presentation/widgets/history_list_item.dart';
@@ -86,9 +88,14 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
                         ),
                   ),
                   IconButton(
-                    icon: const Icon(
-                      Icons.tune,
-                      color: AppTheme.textSecondary,
+                    icon: SvgPicture.asset(
+                      AppIcons.tune,
+                      colorFilter: const ColorFilter.mode(
+                        AppTheme.textSecondary,
+                        BlendMode.srcIn,
+                      ),
+                      width: 24,
+                      height: 24,
                     ),
                     onPressed: () {
                       // TODO(scanvolt): show filter menu
@@ -109,7 +116,15 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
                   hintText: 'Search scans...',
                   hintStyle: const TextStyle(color: AppTheme.textTertiary),
                   prefixIcon:
-                      const Icon(Icons.search, color: AppTheme.textTertiary),
+                      SvgPicture.asset(
+                        AppIcons.search,
+                        colorFilter: const ColorFilter.mode(
+                          AppTheme.textTertiary,
+                          BlendMode.srcIn,
+                        ),
+                        width: 24,
+                        height: 24,
+                      ),
                   filled: true,
                   fillColor: AppTheme.darkSurface,
                   border: OutlineInputBorder(

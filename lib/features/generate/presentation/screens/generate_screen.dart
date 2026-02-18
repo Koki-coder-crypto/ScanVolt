@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scanvolt/app/theme.dart';
+import 'package:scanvolt/core/constants/app_icons.dart';
 import 'package:scanvolt/features/generate/domain/models/qr_content.dart';
 import 'package:scanvolt/features/generate/presentation/view_models/generate_view_model.dart';
 import 'package:scanvolt/features/generate/presentation/widgets/generate_input_form.dart';
@@ -53,12 +55,16 @@ class GenerateScreen extends ConsumerWidget {
                         label: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(
-                              _typeIcon(type),
-                              size: 16,
-                              color: isSelected
-                                  ? AppTheme.darkBackground
-                                  : AppTheme.textPrimary,
+                            SvgPicture.asset(
+                              _typeIconPath(type),
+                              width: 16,
+                              height: 16,
+                              colorFilter: ColorFilter.mode(
+                                isSelected
+                                    ? AppTheme.darkBackground
+                                    : AppTheme.textPrimary,
+                                BlendMode.srcIn,
+                              ),
                             ),
                             const SizedBox(width: 6),
                             Text(_typeLabel(type)),
@@ -117,7 +123,15 @@ class GenerateScreen extends ConsumerWidget {
                               );
                             }
                           : null,
-                      icon: const Icon(Icons.ios_share, size: 18),
+                      icon: SvgPicture.asset(
+                        AppIcons.iosShare,
+                        width: 18,
+                        height: 18,
+                        colorFilter: const ColorFilter.mode(
+                          AppTheme.textPrimary,
+                          BlendMode.srcIn,
+                        ),
+                      ),
                       label: const Text('Share'),
                       style: OutlinedButton.styleFrom(
                         foregroundColor: AppTheme.textPrimary,
@@ -140,7 +154,15 @@ class GenerateScreen extends ConsumerWidget {
                               );
                             }
                           : null,
-                      icon: const Icon(Icons.download, size: 18),
+                      icon: SvgPicture.asset(
+                        AppIcons.download,
+                        width: 18,
+                        height: 18,
+                        colorFilter: const ColorFilter.mode(
+                          AppTheme.darkBackground,
+                          BlendMode.srcIn,
+                        ),
+                      ),
                       label: const Text('Save'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppTheme.primaryCyan,
@@ -162,11 +184,11 @@ class GenerateScreen extends ConsumerWidget {
     );
   }
 
-  IconData _typeIcon(QrContentType type) => switch (type) {
-        QrContentType.url => Icons.link,
-        QrContentType.text => Icons.description_outlined,
-        QrContentType.wifi => Icons.wifi,
-        QrContentType.contact => Icons.person_outline,
+  String _typeIconPath(QrContentType type) => switch (type) {
+        QrContentType.url => AppIcons.link,
+        QrContentType.text => AppIcons.descriptionOutlined,
+        QrContentType.wifi => AppIcons.wifi,
+        QrContentType.contact => AppIcons.personOutline,
       };
 
   String _typeLabel(QrContentType type) => switch (type) {

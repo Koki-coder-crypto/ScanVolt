@@ -1,0 +1,108 @@
+<svg width="280" height="280" viewBox="0 0 280 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="280" height="280" rx="24" fill="#121212"/>
+
+  <!-- Subtle radial glow -->
+  <defs>
+    <radialGradient id="glow3" cx="140" cy="140" r="120" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#00BCD4" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#00BCD4" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <circle cx="140" cy="140" r="120" fill="url(#glow3)"/>
+
+  <!-- Phone frame -->
+  <rect x="78" y="28" width="124" height="224" rx="16" fill="#1E1E1E" stroke="#2C2C2C" stroke-width="1.5"/>
+
+  <!-- Phone notch -->
+  <rect x="118" y="32" width="44" height="6" rx="3" fill="#2C2C2C"/>
+
+  <!-- Phone screen area -->
+  <rect x="86" y="46" width="108" height="194" rx="4" fill="#161616"/>
+
+  <!-- Search bar -->
+  <rect x="92" y="52" width="96" height="24" rx="12" fill="#2C2C2C"/>
+  <!-- Search icon -->
+  <circle cx="104" cy="64" r="4.5" fill="none" stroke="#707070" stroke-width="1.2"/>
+  <line x1="107.5" y1="67.5" x2="110" y2="70" stroke="#707070" stroke-width="1.2" stroke-linecap="round"/>
+  <!-- Search placeholder -->
+  <rect x="114" y="61" width="40" height="3" rx="1.5" fill="#707070" opacity="0.4"/>
+
+  <!-- Filter chips row -->
+  <rect x="92" y="82" width="30" height="16" rx="8" fill="#00BCD4" opacity="0.15" stroke="#00BCD4" stroke-width="0.8"/>
+  <rect x="98" y="88" width="18" height="3" rx="1.5" fill="#00BCD4" opacity="0.8"/>
+
+  <rect x="126" y="82" width="26" height="16" rx="8" fill="#2C2C2C"/>
+  <rect x="132" y="88" width="14" height="3" rx="1.5" fill="#707070" opacity="0.5"/>
+
+  <rect x="156" y="82" width="32" height="16" rx="8" fill="#2C2C2C"/>
+  <rect x="162" y="88" width="20" height="3" rx="1.5" fill="#707070" opacity="0.5"/>
+
+  <!-- History list card 1 — URL type -->
+  <rect x="92" y="106" width="96" height="44" rx="8" fill="#2C2C2C"/>
+  <!-- Type icon circle -->
+  <circle cx="106" cy="122" r="8" fill="#00BCD4" opacity="0.12"/>
+  <!-- Link icon -->
+  <path d="M103 123 Q101 123 101 121 Q101 119 103 119 L105 119" stroke="#00BCD4" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+  <path d="M109 121 Q111 121 111 123 Q111 125 109 125 L107 125" stroke="#00BCD4" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+  <line x1="104.5" y1="124" x2="107.5" y2="120" stroke="#00BCD4" stroke-width="1.2" stroke-linecap="round"/>
+  <!-- Text lines -->
+  <rect x="118" y="116" width="58" height="4" rx="2" fill="#FFFFFF" opacity="0.7"/>
+  <rect x="118" y="124" width="42" height="3" rx="1.5" fill="#B0B0B0" opacity="0.4"/>
+  <!-- Timestamp -->
+  <rect x="118" y="132" width="24" height="2.5" rx="1.25" fill="#707070" opacity="0.35"/>
+  <!-- Bookmark star -->
+  <path d="M180 115 L181.2 118 L184.5 118.3 L182 120.5 L182.7 123.7 L180 122 L177.3 123.7 L178 120.5 L175.5 118.3 L178.8 118 Z" fill="#00BCD4" opacity="0.6"/>
+
+  <!-- History list card 2 — Wi-Fi type -->
+  <rect x="92" y="156" width="96" height="44" rx="8" fill="#2C2C2C"/>
+  <!-- Type icon circle -->
+  <circle cx="106" cy="172" r="8" fill="#00BCD4" opacity="0.12"/>
+  <!-- Wi-Fi icon -->
+  <path d="M101 171 Q106 165 111 171" stroke="#00BCD4" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+  <path d="M103 174 Q106 169 109 174" stroke="#00BCD4" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+  <circle cx="106" cy="176" r="1" fill="#00BCD4"/>
+  <!-- Text lines -->
+  <rect x="118" y="166" width="50" height="4" rx="2" fill="#FFFFFF" opacity="0.7"/>
+  <rect x="118" y="174" width="36" height="3" rx="1.5" fill="#B0B0B0" opacity="0.4"/>
+  <!-- Timestamp -->
+  <rect x="118" y="182" width="28" height="2.5" rx="1.25" fill="#707070" opacity="0.35"/>
+
+  <!-- History list card 3 — Contact type (faded) -->
+  <rect x="92" y="206" width="96" height="28" rx="8" fill="#2C2C2C" opacity="0.6"/>
+  <!-- Type icon circle -->
+  <circle cx="106" cy="220" r="8" fill="#00BCD4" opacity="0.08"/>
+  <!-- Person icon -->
+  <circle cx="106" cy="217" r="2.5" fill="none" stroke="#00BCD4" stroke-width="1" opacity="0.5"/>
+  <path d="M101.5 224 Q101.5 221 106 221 Q110.5 221 110.5 224" stroke="#00BCD4" stroke-width="1" stroke-linecap="round" fill="none" opacity="0.5"/>
+  <!-- Text lines -->
+  <rect x="118" y="215" width="44" height="3.5" rx="1.75" fill="#FFFFFF" opacity="0.4"/>
+  <rect x="118" y="222" width="30" height="2.5" rx="1.25" fill="#B0B0B0" opacity="0.25"/>
+
+  <!-- Decorative elements — floating time indicators -->
+  <!-- Clock icon top-left -->
+  <g transform="translate(36, 68)">
+    <circle cx="12" cy="12" r="12" fill="#1E1E1E" stroke="#2C2C2C" stroke-width="0.8"/>
+    <circle cx="12" cy="12" r="7" fill="none" stroke="#00BCD4" stroke-width="1" opacity="0.5"/>
+    <line x1="12" y1="12" x2="12" y2="8" stroke="#00BCD4" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+    <line x1="12" y1="12" x2="15" y2="14" stroke="#00BCD4" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+  </g>
+
+  <!-- Stats badge top-right -->
+  <g transform="translate(216, 62)">
+    <rect x="0" y="0" width="32" height="20" rx="10" fill="#1E1E1E" stroke="#2C2C2C" stroke-width="0.8"/>
+    <rect x="6" y="7" width="8" height="6" rx="1" fill="#00BCD4" opacity="0.4"/>
+    <rect x="17" y="9" width="8" height="4" rx="1" fill="#00BCD4" opacity="0.25"/>
+  </g>
+
+  <!-- Decorative floating dots -->
+  <circle cx="52" cy="140" r="2" fill="#00BCD4" opacity="0.2"/>
+  <circle cx="230" cy="130" r="2.5" fill="#00BCD4" opacity="0.2"/>
+  <circle cx="44" cy="210" r="2" fill="#00BCD4" opacity="0.15"/>
+  <circle cx="238" cy="200" r="2" fill="#00BCD4" opacity="0.15"/>
+  <circle cx="60" cy="172" r="1.5" fill="#00BCD4" opacity="0.1"/>
+  <circle cx="226" cy="168" r="1.5" fill="#00BCD4" opacity="0.1"/>
+
+  <!-- Home indicator -->
+  <rect x="122" y="240" width="36" height="3" rx="1.5" fill="#2C2C2C"/>
+</svg>

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scanvolt/app/theme.dart';
+import 'package:scanvolt/core/constants/app_icons.dart';
 import 'package:scanvolt/features/scan/domain/models/scan_result.dart';
 
 /// 履歴リストの各アイテム。
@@ -35,7 +37,12 @@ class HistoryListItem extends StatelessWidget {
         alignment: Alignment.centerRight,
         padding: const EdgeInsets.only(right: 20),
         color: AppTheme.warningRed,
-        child: const Icon(Icons.delete, color: Colors.white),
+        child: SvgPicture.asset(
+          AppIcons.delete,
+          colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+          width: 24,
+          height: 24,
+        ),
       ),
       child: InkWell(
         onTap: onTap,
@@ -75,9 +82,14 @@ class HistoryListItem extends StatelessWidget {
               // お気に入りスター
               IconButton(
                 onPressed: onToggleFavorite,
-                icon: Icon(
-                  result.isFavorite ? Icons.star : Icons.star_border,
-                  color: result.isFavorite ? Colors.amber : AppTheme.textTertiary,
+                icon: SvgPicture.asset(
+                  result.isFavorite ? AppIcons.star : AppIcons.starBorder,
+                  colorFilter: ColorFilter.mode(
+                    result.isFavorite ? Colors.amber : AppTheme.textTertiary,
+                    BlendMode.srcIn,
+                  ),
+                  width: 24,
+                  height: 24,
                 ),
               ),
             ],
@@ -104,14 +116,14 @@ class _TypeIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final (icon, color) = switch (dataType) {
-      ScanDataType.url => (Icons.language, AppTheme.primaryCyan),
-      ScanDataType.wifi => (Icons.wifi, AppTheme.successGreen),
-      ScanDataType.contact => (Icons.person_outline, Colors.orange),
-      ScanDataType.text => (Icons.description_outlined, Colors.white70),
-      ScanDataType.email => (Icons.email_outlined, Colors.amber),
-      ScanDataType.phone => (Icons.phone, Colors.lightBlue),
-      _ => (Icons.qr_code, Colors.grey),
+    final (iconPath, color) = switch (dataType) {
+      ScanDataType.url => (AppIcons.language, AppTheme.primaryCyan),
+      ScanDataType.wifi => (AppIcons.wifi, AppTheme.successGreen),
+      ScanDataType.contact => (AppIcons.personOutline, Colors.orange),
+      ScanDataType.text => (AppIcons.descriptionOutlined, Colors.white70),
+      ScanDataType.email => (AppIcons.emailOutlined, Colors.amber),
+      ScanDataType.phone => (AppIcons.phone, Colors.lightBlue),
+      _ => (AppIcons.qrCode, Colors.grey),
     };
 
     return Container(
@@ -121,7 +133,7 @@ class _TypeIcon extends StatelessWidget {
         color: color.withValues(alpha: 0.15),
         shape: BoxShape.circle,
       ),
-      child: Icon(icon, color: color, size: 20),
+      child: SvgPicture.asset(iconPath, colorFilter: ColorFilter.mode(color, BlendMode.srcIn), width: 20, height: 20),
     );
   }
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:scanvolt/app/theme.dart';
+import 'package:scanvolt/core/constants/app_icons.dart';
 
 /// 履歴が空の場合に表示するウィジェット。
 class HistoryEmptyState extends StatelessWidget {
@@ -16,10 +18,14 @@ class HistoryEmptyState extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             // 時計アイコン
-            Icon(
-              Icons.access_time,
-              size: 64,
-              color: AppTheme.textTertiary.withValues(alpha: 0.5),
+            SvgPicture.asset(
+              AppIcons.accessTime,
+              colorFilter: ColorFilter.mode(
+                AppTheme.textTertiary.withValues(alpha: 0.5),
+                BlendMode.srcIn,
+              ),
+              width: 64,
+              height: 64,
             ),
             const SizedBox(height: 20),
 

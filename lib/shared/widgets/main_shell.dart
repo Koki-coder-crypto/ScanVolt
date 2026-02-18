@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:scanvolt/app/theme.dart';
+import 'package:scanvolt/core/constants/app_icons.dart';
 
 /// アプリのメインシェル（ボトムナビゲーション付き）。
 ///
@@ -30,25 +32,25 @@ class MainShell extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 _NavItem(
-                  icon: Icons.qr_code_scanner,
+                  iconPath: AppIcons.qrCodeScanner,
                   label: 'Scan',
                   isActive: navigationShell.currentIndex == 0,
                   onTap: () => _onTap(0),
                 ),
                 _NavItem(
-                  icon: Icons.access_time,
+                  iconPath: AppIcons.accessTime,
                   label: 'History',
                   isActive: navigationShell.currentIndex == 1,
                   onTap: () => _onTap(1),
                 ),
                 _NavItem(
-                  icon: Icons.add_box_outlined,
+                  iconPath: AppIcons.addBoxOutlined,
                   label: 'Generate',
                   isActive: navigationShell.currentIndex == 2,
                   onTap: () => _onTap(2),
                 ),
                 _NavItem(
-                  icon: Icons.settings_outlined,
+                  iconPath: AppIcons.settingsOutlined,
                   label: 'Settings',
                   isActive: navigationShell.currentIndex == 3,
                   onTap: () => _onTap(3),
@@ -71,13 +73,13 @@ class MainShell extends StatelessWidget {
 
 class _NavItem extends StatelessWidget {
   const _NavItem({
-    required this.icon,
+    required this.iconPath,
     required this.label,
     required this.isActive,
     required this.onTap,
   });
 
-  final IconData icon;
+  final String iconPath;
   final String label;
   final bool isActive;
   final VoidCallback onTap;
@@ -103,7 +105,12 @@ class _NavItem extends StatelessWidget {
                       borderRadius: BorderRadius.circular(16),
                     )
                   : null,
-              child: Icon(icon, color: color, size: 24),
+              child: SvgPicture.asset(
+                iconPath,
+                colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
+                width: 24,
+                height: 24,
+              ),
             ),
             const SizedBox(height: 4),
             Text(
