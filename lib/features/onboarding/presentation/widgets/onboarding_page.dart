@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scanvolt/app/theme.dart';
 
 /// オンボーディングページのデータモデル。
 class OnboardingPageData {
   /// [OnboardingPageData] を生成する。
   const OnboardingPageData({
-    required this.icon,
+    required this.imagePath,
     required this.title,
     required this.subtitle,
   });
 
-  /// ページに表示するアイコン。
-  final IconData icon;
+  /// ページに表示する SVG イラストのアセットパス。
+  final String imagePath;
 
   /// ページのタイトル。
   final String title;
@@ -30,51 +31,43 @@ class OnboardingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 32),
+      padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // アイコン（円形背景付き）
-          Container(
-            width: 120,
-            height: 120,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: AppTheme.primaryCyan.withValues(alpha: 0.1),
-              border: Border.all(
-                color: AppTheme.primaryCyan.withValues(alpha: 0.3),
-              ),
-            ),
-            child: Icon(
-              data.icon,
-              size: 64,
-              color: AppTheme.primaryCyan,
-            ),
+          // イラスト（280×280 の SVG）
+          SvgPicture.asset(
+            data.imagePath,
+            width: 280,
+            height: 280,
           ),
-          const SizedBox(height: 48),
+          const SizedBox(height: 32),
 
           // タイトル
           Text(
             data.title,
-            style: textTheme.headlineMedium?.copyWith(
-              color: AppTheme.textPrimary,
+            style: const TextStyle(
+              fontSize: 24,
               fontWeight: FontWeight.w700,
+              color: AppTheme.textPrimary,
             ),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 16),
 
           // サブタイトル
-          Text(
-            data.subtitle,
-            style: textTheme.bodyLarge?.copyWith(
-              color: AppTheme.textSecondary,
-              height: 1.5,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Text(
+              data.subtitle,
+              style: const TextStyle(
+                fontSize: 16,
+                color: AppTheme.textSecondary,
+                height: 1.5,
+              ),
+              textAlign: TextAlign.center,
             ),
-            textAlign: TextAlign.center,
           ),
         ],
       ),

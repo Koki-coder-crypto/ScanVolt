@@ -8,21 +8,21 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// オンボーディングページの定義。
 const _pages = [
   OnboardingPageData(
-    icon: Icons.qr_code_scanner_rounded,
+    imagePath: 'assets/onboarding/scan.svg',
     title: 'Instant Scan',
-    subtitle: 'Point your camera at any QR code or barcode.\n'
+    subtitle: 'Point your camera at any QR code or barcode. '
         'Results appear in a flash.',
   ),
   OnboardingPageData(
-    icon: Icons.add_box_rounded,
+    imagePath: 'assets/onboarding/generate.svg',
     title: 'Generate & Share',
-    subtitle: 'Create QR codes for URLs, Wi-Fi, contacts,\n'
+    subtitle: 'Create QR codes for URLs, Wi-Fi, contacts, '
         'and share them instantly.',
   ),
   OnboardingPageData(
-    icon: Icons.history_rounded,
+    imagePath: 'assets/onboarding/history.svg',
     title: 'History at a Glance',
-    subtitle: 'Every scan is saved automatically.\n'
+    subtitle: 'Every scan is saved automatically. '
         'Search, filter, and manage with ease.',
   ),
 ];
@@ -70,20 +70,21 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
             Align(
               alignment: Alignment.centerRight,
               child: Padding(
-                padding: const EdgeInsets.only(top: 8, right: 16),
+                padding: const EdgeInsets.only(top: 64, right: 24),
                 child: TextButton(
                   onPressed: _completeOnboarding,
                   child: const Text(
                     'Skip',
                     style: TextStyle(
                       color: AppTheme.textTertiary,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
                     ),
                   ),
                 ),
               ),
             ),
+
+            const SizedBox(height: 32),
 
             // ページコンテンツ
             Expanded(
@@ -101,7 +102,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
 
             // ドットインジケーター
             Padding(
-              padding: const EdgeInsets.only(bottom: 24),
+              padding: const EdgeInsets.only(bottom: 48),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: List.generate(
@@ -112,7 +113,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                     width: _currentPage == index ? 28 : 8,
                     height: 8,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4),
+                      borderRadius: _currentPage == index
+                          ? BorderRadius.circular(4)
+                          : BorderRadius.circular(4),
                       color: _currentPage == index
                           ? AppTheme.primaryCyan
                           : AppTheme.textTertiary,
@@ -124,10 +127,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
 
             // Next / Get Started ボタン
             Padding(
-              padding: const EdgeInsets.fromLTRB(32, 0, 32, 32),
+              padding: const EdgeInsets.fromLTRB(24, 0, 24, 48),
               child: SizedBox(
                 width: double.infinity,
-                height: 56,
                 child: ElevatedButton(
                   onPressed: () async {
                     if (_currentPage == _pages.length - 1) {
@@ -141,13 +143,14 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppTheme.primaryCyan,
-                    foregroundColor: AppTheme.textPrimary,
+                    foregroundColor: AppTheme.darkBackground,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(14),
                     ),
                     textStyle: const TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.w700,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                   child: Text(
