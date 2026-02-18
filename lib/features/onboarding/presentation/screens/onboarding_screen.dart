@@ -8,19 +8,19 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// オンボーディングページの定義。
 const _pages = [
   OnboardingPageData(
-    imagePath: 'assets/onboarding/scan.svg',
+    pageIndex: 0,
     title: 'Instant Scan',
     subtitle: 'Point your camera at any QR code or barcode. '
         'Results appear in a flash.',
   ),
   OnboardingPageData(
-    imagePath: 'assets/onboarding/generate.svg',
+    pageIndex: 1,
     title: 'Generate & Share',
     subtitle: 'Create QR codes for URLs, Wi-Fi, contacts, '
         'and share them instantly.',
   ),
   OnboardingPageData(
-    imagePath: 'assets/onboarding/history.svg',
+    pageIndex: 2,
     title: 'History at a Glance',
     subtitle: 'Every scan is saved automatically. '
         'Search, filter, and manage with ease.',
@@ -66,7 +66,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            // 上部：Skip ボタン
+            // 上部：Skip ボタン（Figma: 16px, #707070, top 64）
             Align(
               alignment: Alignment.centerRight,
               child: Padding(
@@ -101,6 +101,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
             ),
 
             // ドットインジケーター
+            // Figma: active 32×8 rounded 4px #00BCD4,
+            //   inactive 8×8 circle #3C3C3C, gap 8
             Padding(
               padding: const EdgeInsets.only(bottom: 48),
               child: Row(
@@ -110,15 +112,13 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                   (index) => AnimatedContainer(
                     duration: const Duration(milliseconds: 300),
                     margin: const EdgeInsets.symmetric(horizontal: 4),
-                    width: _currentPage == index ? 28 : 8,
+                    width: _currentPage == index ? 32 : 8,
                     height: 8,
                     decoration: BoxDecoration(
-                      borderRadius: _currentPage == index
-                          ? BorderRadius.circular(4)
-                          : BorderRadius.circular(4),
+                      borderRadius: BorderRadius.circular(4),
                       color: _currentPage == index
                           ? AppTheme.primaryCyan
-                          : AppTheme.textTertiary,
+                          : const Color(0xFF3C3C3C),
                     ),
                   ),
                 ),
@@ -126,37 +126,63 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
             ),
 
             // Next / Get Started ボタン
+            // Figma: borderRadius 16, gradient #00E5FF→#00BCD4,
+            //   fontSize 17, bold, color #0A0A0A, py 16, bottom 48
             Padding(
               padding: const EdgeInsets.fromLTRB(24, 0, 24, 48),
               child: SizedBox(
                 width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () async {
-                    if (_currentPage == _pages.length - 1) {
-                      await _completeOnboarding();
-                    } else {
-                      await _controller.nextPage(
-                        duration: const Duration(milliseconds: 300),
-                        curve: Curves.easeInOut,
-                      );
-                    }
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppTheme.primaryCyan,
-                    foregroundColor: AppTheme.darkBackground,
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(14),
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [Color(0xFF00E5FF), AppTheme.primaryCyan],
                     ),
-                    textStyle: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppTheme.primaryCyan.withValues(alpha: 0.35),
+                        blurRadius: 20,
+                        offset: const Offset(0, 8),
+                      ),
+                      BoxShadow(
+                        color: AppTheme.primaryCyan.withValues(alpha: 0.2),
+                        blurRadius: 8,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
                   ),
-                  child: Text(
-                    _currentPage == _pages.length - 1
-                        ? 'Get Started'
-                        : 'Next',
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      if (_currentPage == _pages.length - 1) {
+                        await _completeOnboarding();
+                      } else {
+                        await _controller.nextPage(
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeInOut,
+                        );
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.transparent,
+                      foregroundColor: AppTheme.darkBackground,
+                      shadowColor: Colors.transparent,
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      textStyle: const TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 0.34, // 0.02em × 17
+                      ),
+                    ),
+                    child: Text(
+                      _currentPage == _pages.length - 1
+                          ? 'Get Started'
+                          : 'Next',
+                    ),
                   ),
                 ),
               ),
