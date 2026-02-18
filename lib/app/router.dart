@@ -2,15 +2,27 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:scanvolt/features/generate/presentation/screens/generate_screen.dart';
 import 'package:scanvolt/features/history/presentation/screens/history_screen.dart';
+import 'package:scanvolt/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:scanvolt/features/scan/presentation/screens/scan_screen.dart';
 import 'package:scanvolt/features/settings/presentation/screens/settings_screen.dart';
 import 'package:scanvolt/shared/widgets/main_shell.dart';
 
+/// オンボーディング完了フラグを提供するプロバイダー。
+///
+/// `main` 関数内で SharedPreferences の値を使って override する。
+final onboardingCompleteProvider = Provider<bool>((ref) => false);
+
 /// アプリ全体のルーティング定義。
 final routerProvider = Provider<GoRouter>((ref) {
+  final onboardingComplete = ref.watch(onboardingCompleteProvider);
+
   return GoRouter(
-    initialLocation: '/scan',
+    initialLocation: onboardingComplete ? '/scan' : '/onboarding',
     routes: [
+      GoRoute(
+        path: '/onboarding',
+        builder: (context, state) => const OnboardingScreen(),
+      ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
           return MainShell(navigationShell: navigationShell);
